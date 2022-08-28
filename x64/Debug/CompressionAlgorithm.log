@@ -1,0 +1,5 @@
+﻿  CompressionAlgorithm.c
+E:\Project\VisualStudioProject\CompressionAlgorithm\CompressionAlgorithm.c(37,17): warning C4101: “s”: 未引用的局部变量
+E:\Project\VisualStudioProject\CompressionAlgorithm\CompressionAlgorithm.c(29): warning C4716: “compression”: 必须返回一个值
+E:\Project\VisualStudioProject\CompressionAlgorithm\CompressionAlgorithm.c(40): warning C4716: “insertPx”: 必须返回一个值
+  CompressionAlgorithm.vcxproj -> E:\Project\VisualStudioProject\CompressionAlgorithm\x64\Debug\CompressionAlgorithm.exe

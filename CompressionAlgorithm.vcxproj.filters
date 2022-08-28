@@ -15,8 +15,19 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="CompressionAlgorithm.cpp">
+    <ClCompile Include="CompressionAlgorithm.c">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="file.c">
+      <Filter>资源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="date.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="data.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

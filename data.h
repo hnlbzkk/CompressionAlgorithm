@@ -1,20 +1,33 @@
-//
-// Created by ZKK on 2022/8/23.
-//
+#include <stdint.h>
 
-#ifndef PROJECT_DATA_H
-#define PROJECT_DATA_H
+#define OK 1
+#define ERROR 0
+typedef int Status;
 
-#endif //PROJECT_DATA_H
+typedef uint8_t Byte;
+typedef uint16_t Px;
 
-typedef unsigned short BYTE;
-
-typedef struct Word{
-    BYTE low;
-    BYTE high;
-}Word;
-
-typedef struct {
+typedef struct Node{
     short size;
-    Word word;
-}Zip;
+    Px px;
+    struct Node *next;
+}Node;
+
+typedef struct Node* LinkList;
+
+Node *end = NULL;
+Node *current = NULL;
+Node *next = NULL;
+
+
+Px hexadecimalToPx(Byte, Byte);
+
+LinkList compression(char*, int);
+
+Status initLinkList();
+
+Status getCurrentPx(int*, Px*);
+
+void insertPx(Px);
+
+Status deletePx(LinkList, Px*);
