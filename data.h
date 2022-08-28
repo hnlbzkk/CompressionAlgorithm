@@ -15,9 +15,9 @@ typedef struct Node{
 
 typedef struct Node* LinkList;
 
-Node *end = NULL;
-Node *current = NULL;
-Node *next = NULL;
+extern Node *end;
+extern Node *current;
+extern Node *next;
 
 
 Px hexadecimalToPx(Byte, Byte);
