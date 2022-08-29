@@ -4,7 +4,6 @@
 #include "file.c"
 
 
-
 int main()
 {
     /*
@@ -14,6 +13,7 @@ int main()
     px = hexadecimalToPx(low, high);
     printf("%d", px);
     */
+	char chs[6] = { 0X6B,0X7B,0X4B,0X73,0X4B,0X73 };
 
-    compression(gImage_file, sizeof(gImage_file));
+    compression(chs, sizeof(chs));
 }

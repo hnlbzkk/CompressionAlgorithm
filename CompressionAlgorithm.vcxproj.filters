@@ -15,13 +15,10 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="CompressionAlgorithm.c">
+    <ClCompile Include="date.c">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="file.c">
-      <Filter>资源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="date.c">
+    <ClCompile Include="main.c">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

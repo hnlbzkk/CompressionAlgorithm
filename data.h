@@ -19,12 +19,13 @@ extern Node *end;
 extern Node *current;
 extern Node *next;
 
+void printList(LinkList);
 
 Px hexadecimalToPx(Byte, Byte);
 
 LinkList compression(char*, int);
 
-Status initLinkList();
+LinkList initLinkList();
 
 Status getCurrentPx(int*, Px*);
 

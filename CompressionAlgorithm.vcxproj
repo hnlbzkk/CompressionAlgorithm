@@ -151,9 +151,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="CompressionAlgorithm.c" />
+    <ClCompile Include="main.c" />
     <ClCompile Include="date.c" />
-    <ClCompile Include="file.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="data.h" />

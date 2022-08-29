@@ -1,1 +1,2 @@
 E:\Project\VisualStudioProject\CompressionAlgorithm\x64\Debug\CompressionAlgorithm.exe
+D:\Visual Studio\Project\CompressionAlgorithm\x64\Debug\CompressionAlgorithm.exe
