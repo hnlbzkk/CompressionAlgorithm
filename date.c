@@ -2,57 +2,63 @@
 #include <stdlib.h>
 #include "data.h"
 
+Node *start = NULL;
 Node *end = NULL;
 Node *current = NULL;
-Node *next = NULL;
+//Node *next = NULL;
 
-LinkList compression(char* input, int size) {
-    Px px, *currentPx = NULL;
-	int *currentSize;
+Status compression(char* input, int size) {
+    Px px;
     int index = 0;
-    LinkList list = initLinkList();
-    for (int i = 0; i < size;) {
-        printf("=======\n");
-        Byte high = input[i++];
-        Byte low = input[i++];
-        px = hexadecimalToPx(high, low);
-        printf("==%d==\n", px);
+    int *iPtr = &index;
+    if (initLinkList()) {
+        for (int i = 0; i < size;) {
+            Byte high = input[i++];
+            Byte low = input[i++];
+            px = hexadecimalToPx(high, low);
 
-		insertPx(px);
+            insertPx(px, iPtr);
+        }
+        
+        start->size = *iPtr;
+        current = start;
+        end->next = NULL;
+
+        return OK;
     }
-	//printList(list);
-    return list;
+    else {
+        return ERROR;
+    }
 }
 
-void printList(LinkList list) {
-	while (list->next) {
-		printf("%d %d -> ", list->size, list->px);
+void printList() {
+	while (start != NULL) {
+		printf("%d %d -> ", start->size, start->px);
+        start = start->next;
 	}
+    return;
 }
 
 Px hexadecimalToPx(Byte high, Byte low) {
-    Px result;
-    result = ((high << 8) | low);
-    printf("ToPx = %d", result);
-    return result;
+    return (high << 8) | low;
 }
 
-LinkList initLinkList() {
-	LinkList head;
-	head = (LinkList)malloc(sizeof(Node));
-    head->size = 0;
-    head->px = 0;
-	current = head;
+Status initLinkList() {
+    start = (LinkList)malloc(sizeof(Node));
+    if (start) {
+        start->size = 0;
+        start->px = 0;
+        current = start;
+        end = start;
 
-	next = (Node*)malloc(sizeof(Node));
-    next->size = 0;
-    next->px = 0;
-	current->next = next;
-	next->next = NULL;
-
-	return head;
+        return OK;
+    }
+    else {
+        return ERROR;
+    }
 }
 
+/*
 Status getCurrentPx(int *size, Px *px) {
     if (current && current->next) {
         *px = current->px;
@@ -73,38 +79,19 @@ Status getCurrentPx(int *size, Px *px) {
     }
 	return OK;
 }
-
-void insertPx(Px px) {
-    printf("current: %d %d\n", current->size, current->px);
-    Px currentPx = current->px;
-    printf("currentPx: %d, inputPx %d  ", currentPx, px);
-    if (px == currentPx) {
-        printf("add  ");
+*/
+void insertPx(Px px, int *index) {
+    if (px == current->px) {
         current->size++;
     }
     else {
-        /*
-        next = (Node*)malloc(sizeof(Node));
-        if (next) {
-            next->size = 1;
-            next->px = currentPx;
-            next->next = NULL;
-
-            current->next = next;
-			current = next;
-            printf("next: %d %d\n", next->size, next->px);
-        }
-        */
-        next = (Node*)malloc(sizeof(Node));
-        if (next) {
+        current = (Node*)malloc(sizeof(Node));
+        if (current) {
             current->size = 1;
             current->px = px;
-            current->next = next;
-
-            next->size = 0;
-            next->px = 0;
-            next->next = NULL;
-            printf("new: %d %d\n", current->size, current->px);
+            end->next = current;
+            end = current;
+            (*index)++;
         }
     }
 }

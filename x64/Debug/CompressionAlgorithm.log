@@ -1,3 +1,5 @@
 ﻿  date.c
-D:\Visual Studio\Project\CompressionAlgorithm\date.c(11,7): warning C4101: “currentSize”: 未引用的局部变量
+  main.c
+  正在生成代码...
+D:\Visual Studio\Project\CompressionAlgorithm\date.c(28): warning C4715: “compression”: 不是所有的控件路径都返回值
   CompressionAlgorithm.vcxproj -> D:\Visual Studio\Project\CompressionAlgorithm\x64\Debug\CompressionAlgorithm.exe

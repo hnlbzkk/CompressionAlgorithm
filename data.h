@@ -15,20 +15,21 @@ typedef struct Node{
 
 typedef struct Node* LinkList;
 
+extern Node *start;
 extern Node *end;
 extern Node *current;
-extern Node *next;
+//extern Node *next;
 
-void printList(LinkList);
+void printList();
 
 Px hexadecimalToPx(Byte, Byte);
 
-LinkList compression(char*, int);
+Status compression(char*, int);
 
-LinkList initLinkList();
+Status initLinkList();
 
 Status getCurrentPx(int*, Px*);
 
-void insertPx(Px);
+void insertPx(Px, int*);
 
 Status deletePx(LinkList, Px*);
