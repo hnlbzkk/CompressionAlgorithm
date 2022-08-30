@@ -8,9 +8,9 @@ typedef uint8_t Byte;
 typedef uint16_t Px;
 
 typedef struct Node{
-    short size;
+    struct Node* next;
     Px px;
-    struct Node *next;
+    short size;    
 }Node;
 
 typedef struct Node* LinkList;

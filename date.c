@@ -21,8 +21,9 @@ Status compression(char* input, int size) {
         }
         
         start->size = *iPtr;
-        current = start;
         end->next = NULL;
+        current = start;
+        printf("\n\nend: %d %d", end->size, end->px);
 
         return OK;
     }
@@ -33,7 +34,7 @@ Status compression(char* input, int size) {
 
 void printList() {
 	while (start != NULL) {
-		printf("%d %d -> ", start->size, start->px);
+		printf("%d ", start->size);
         start = start->next;
 	}
     return;
@@ -58,28 +59,25 @@ Status initLinkList() {
     }
 }
 
-/*
 Status getCurrentPx(int *size, Px *px) {
     if (current && current->next) {
-        *px = current->px;
-        *size = current->size;
+        (* px) = current->px;
+        (* size) = current->size;
 
         current = current->next;
-        next = current->next;
     }
     else if (current && current->next == NULL) {
-        *px = current->px;
-        *size = current->size;
+        (*px) = current->px;
+        (*size) = current->size;
 
         current = NULL;
-        next = NULL;
     }
     else {
         return ERROR;
     }
 	return OK;
 }
-*/
+
 void insertPx(Px px, int *index) {
     if (px == current->px) {
         current->size++;
@@ -96,6 +94,18 @@ void insertPx(Px px, int *index) {
     }
 }
 
-Status deletePx(LinkList L, Px* px) {
+Status deletePx(LinkList L, Px* data) {
+    if (L->next == NULL) {
+        free(L);
+        return OK;
+    }
+
+    Node* temp = L->next,* node = temp->next;
+    
+    temp->next = temp->next->next;
+    *data = node->px;
+
+    free(node);
+
     return OK;
 }
