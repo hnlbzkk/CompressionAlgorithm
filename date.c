@@ -6,6 +6,10 @@ Node *start = NULL;
 Node *end = NULL;
 Node *current = NULL;
 //Node *next = NULL;
+Px uncompressionPx = 0;
+Px* uncompressionPxPtr = &uncompressionPx;
+short uncompressionSize = 0;
+short* uncompressionSizePtr = &uncompressionSize;
 
 Status compression(char* input, int size) {
     Px px;
@@ -23,7 +27,6 @@ Status compression(char* input, int size) {
         start->size = *iPtr;
         end->next = NULL;
         current = start;
-        printf("\n\nend: %d %d", end->size, end->px);
 
         return OK;
     }
@@ -33,10 +36,13 @@ Status compression(char* input, int size) {
 }
 
 void printList() {
+    printf("LinkList: \n");
 	while (start != NULL) {
-		printf("%d ", start->size);
+		printf("%d %d ", start->size, start->px);
         start = start->next;
 	}
+    start = current;
+    printf("==============\n\n");
     return;
 }
 
@@ -59,6 +65,22 @@ Status initLinkList() {
     }
 }
 
+void insertPx(Px px, int* index) {
+    if (px == current->px) {
+        current->size++;
+    }
+    else {
+        current = (Node*)malloc(sizeof(Node));
+        if (current) {
+            current->size = 1;
+            current->px = px;
+            end->next = current;
+            end = current;
+            (*index)++;
+        }
+    }
+}
+
 Status getCurrentPx(int *size, Px *px) {
     if (current && current->next) {
         (* px) = current->px;
@@ -78,34 +100,27 @@ Status getCurrentPx(int *size, Px *px) {
 	return OK;
 }
 
-void insertPx(Px px, int *index) {
-    if (px == current->px) {
-        current->size++;
+void deletePx() {
+    if (start->next->next == NULL) {
+        Node* temp = start->next;
+
+        (*uncompressionPxPtr) = temp->px;
+        (*uncompressionSizePtr) = temp->size;
+
+        free(temp);
+    }
+    else if (start->next == NULL) {
+        free(start);
     }
     else {
-        current = (Node*)malloc(sizeof(Node));
-        if (current) {
-            current->size = 1;
-            current->px = px;
-            end->next = current;
-            end = current;
-            (*index)++;
-        }
+        Node* temp = start->next, * node = temp->next;
+        printf("temp = %d %d", temp->size, temp->px);
+        printf("node = %d %d", node->size, node->px);
+
+        temp->next = temp->next->next;
+        (*uncompressionPxPtr) = node->px;
+        (*uncompressionSizePtr) = node->size;
+
+        free(node);
     }
-}
-
-Status deletePx(LinkList L, Px* data) {
-    if (L->next == NULL) {
-        free(L);
-        return OK;
-    }
-
-    Node* temp = L->next,* node = temp->next;
-    
-    temp->next = temp->next->next;
-    *data = node->px;
-
-    free(node);
-
-    return OK;
 }

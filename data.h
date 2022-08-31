@@ -19,6 +19,10 @@ extern Node *start;
 extern Node *end;
 extern Node *current;
 //extern Node *next;
+extern Px uncompressionPx;
+extern Px* uncompressionPxPtr;
+extern short uncompressionSize;
+extern short* uncompressionSizePtr;
 
 void printList();
 
@@ -32,4 +36,4 @@ Status getCurrentPx(int*, Px*);
 
 void insertPx(Px, int*);
 
-Status deletePx(LinkList, Px*);
+void deletePx();

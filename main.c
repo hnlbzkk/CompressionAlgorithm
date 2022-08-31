@@ -17,4 +17,10 @@ int main()
 
     compression(chs, sizeof(chs));
     printList();
+    deletePx();
+    printList();
+    deletePx();
+    printList();
+    deletePx();
+    printList();
 }
