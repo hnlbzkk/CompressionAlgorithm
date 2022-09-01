@@ -3,7 +3,6 @@
 #include "data.h"
 #include "file.h"
 
-
 int main()
 {
     /*
@@ -13,14 +12,17 @@ int main()
     px = hexadecimalToPx(low, high);
     printf("%d", px);
     */
-    char chs[] = { 0X6B,0X7B,0X4B,0X73,0X4B,0X73,0X6B,0X7B,0X6B,0X73,0X6B,0X73 };
 
-    compression(chs, sizeof(chs));
+    
+    char chs[] = { 0X6B,0X7B,0X4B,0X73,0X4B,0X73,0X6B,0X7B,0X6B,0X73,0X6B,0X73 };
+    int len = sizeof(chs);
+
+    // 压缩
+    compression(chs, len);
     printList();
-    deletePx();
-    printList();
-    deletePx();
-    printList();
-    deletePx();
-    printList();
+
+    // 解压缩
+    char uncompressionChs[sizeof(chs)];
+    uncompression(uncompressionChs, len);
+    printArray(uncompressionChs, len);
 }

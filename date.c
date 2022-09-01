@@ -10,8 +10,15 @@ Px uncompressionPx = 0;
 Px* uncompressionPxPtr = &uncompressionPx;
 short uncompressionSize = 0;
 short* uncompressionSizePtr = &uncompressionSize;
+unsigned char uncompressionArray[];
+unsigned int* arraySize = NULL;
+Byte  lowByte = 0;
+Byte* lowBytePtr = &lowByte;
+Byte  highByte = 0;
+Byte* highBytePtr = &highByte;
 
 Status compression(char* input, int size) {
+    //*arraySize = size;
     Px px;
     int index = 0;
     int *iPtr = &index;
@@ -35,19 +42,56 @@ Status compression(char* input, int size) {
     }
 }
 
+void uncompression(char* array, int size) {
+    short currentSize = 0;
+    Px currentPx = 0;
+    for (int i = 0; i < size;) {
+        deletePx();
+        currentSize = *uncompressionSizePtr;
+        currentPx = *uncompressionPxPtr;
+        PxToHexadecimal(uncompressionPxPtr);
+        for (int j = 0; j < currentSize; j++) {
+            array[i++] = *highBytePtr;
+            array[i++] = *lowBytePtr;
+        }
+    }
+}
+
 void printList() {
     printf("LinkList: \n");
 	while (start != NULL) {
-		printf("%d %d ", start->size, start->px);
+        if (start->next == NULL) {
+            printf("(%d %d)", start->size, start->px);
+            break;
+        }
+        else {
+            printf(" (%d %d) ->", start->size, start->px);
+        }
         start = start->next;
 	}
     start = current;
-    printf("==============\n\n");
+    printf("\n\n");
     return;
+}
+
+void printArray(char* array, int size) {
+    printf("Array:\n[ ");
+    for (int i = 0; i < size; i++) {
+        if (i == size - 1) {
+            printf("%d ]\n\n", array[i]);
+            break;
+        }
+        printf("%d, ", array[i]);
+    }
 }
 
 Px hexadecimalToPx(Byte high, Byte low) {
     return (high << 8) | low;
+}
+
+void PxToHexadecimal(Px* px) {
+    (*lowBytePtr) = (*px) & 0x00FF;
+    (*highBytePtr) = (*px) >> 8;
 }
 
 Status initLinkList() {
@@ -81,6 +125,7 @@ void insertPx(Px px, int* index) {
     }
 }
 
+/*
 Status getCurrentPx(int *size, Px *px) {
     if (current && current->next) {
         (* px) = current->px;
@@ -99,7 +144,7 @@ Status getCurrentPx(int *size, Px *px) {
     }
 	return OK;
 }
-
+*/
 void deletePx() {
     if (start->next->next == NULL) {
         Node* temp = start->next;
@@ -108,18 +153,14 @@ void deletePx() {
         (*uncompressionSizePtr) = temp->size;
 
         free(temp);
-    }
-    else if (start->next == NULL) {
         free(start);
     }
     else {
-        Node* temp = start->next, * node = temp->next;
-        printf("temp = %d %d", temp->size, temp->px);
-        printf("node = %d %d", node->size, node->px);
+        Node* temp = start, * node = temp->next;
 
-        temp->next = temp->next->next;
         (*uncompressionPxPtr) = node->px;
         (*uncompressionSizePtr) = node->size;
+        temp->next = temp->next->next;
 
         free(node);
     }
